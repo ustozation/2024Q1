@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './App.css'
 
 function App() {
 	const [count, setCount] = useState(5)
 	const inc = () => {
 		setCount(count + 1)
+		// setCount(prevState => {
+		// 	return prevState + 1
+		// })
 	}
 
 	return (
