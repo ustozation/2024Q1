@@ -1,24 +1,33 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-	const [count, setCount] = useState(5)
-	const inc = () => {
-		setCount(count + 1)
-	}
+	const [count, setCount] = useState(1)
+	const [loading, setLoading] = useState(true)
+	const [todo, setTodo] = useState(null)
 
-	const dec = () => {
-		if (count > 0) {
-			setCount(count - 1)
+	useEffect(() => {
+		fetch(`https://jsonplaceholder.typicode.com/todos/${count}`)
+			.then(response => response.json())
+			.then(json => {
+				setTodo(json)
+				setLoading(false)
+			})
+
+		return () => {
+			setLoading(true)
 		}
-	}
+	}, [count])
+
+	console.log(todo)
 
 	return (
 		<>
-			<div className='card'>
-				<h1>{count}</h1>
-				<button onClick={inc}>INC</button>
-				{count > 0 && <button onClick={dec}>DEC</button>}
+			<div className='wrapper'>
+				<h1>{loading ? 'Loading...' : todo.title}</h1>
+				<button onClick={() => setCount(count => count + 1)}>
+					count is {count}
+				</button>
 			</div>
 		</>
 	)
