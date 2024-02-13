@@ -1,60 +1,27 @@
-import { useState, useEffect, useRef } from 'react'
-import { v4 as uuidv4 } from 'uuid'
-import { todosList } from './utils/mock'
+import { useState } from 'react'
+import Count from './components/Count'
+import IsFive from './components/IsFive'
 import './App.css'
 
 function App() {
-	const [todos, setTodos] = useState(todosList)
-	const [newTodo, setNewTodo] = useState('')
-	const ulRef = useRef()
-
-	const handleScroll = () => {
-		console.log('scroll')
-	}
-
-	const addTodo = () => {
-		if (newTodo) {
-			setTodos(prevTodos => {
-				const newTodoData = {
-					id: uuidv4(),
-					title: newTodo,
-					completed: false,
-				}
-
-				return [newTodoData, ...prevTodos]
-			})
-			setNewTodo('')
-		}
-	}
-
-	const removeScroll = () => {
-		ulRef.current.removeEventListener('scroll', handleScroll)
-	}
-
-	useEffect(() => {
-		ulRef.current.addEventListener('scroll', handleScroll)
-	}, [])
-
+	const [count1, setCount1] = useState(0)
+	const [count2, setCount2] = useState(0)
 	return (
 		<>
 			<div className='wrapper'>
-				<h1>Todo list</h1>
-				<ul className='todos' ref={ulRef}>
-					{todos.map(todo => (
-						<li key={todo.id} className='todo-item'>
-							{todo.title}
-						</li>
-					))}
-				</ul>
-				<div className='todo-footer'>
-					<button onClick={removeScroll}>Remove scroll</button>
-					<div className='todo-input'>
-						<input
-							type='text'
-							onChange={e => setNewTodo(e.target.value)}
-							value={newTodo}
-						/>
-						<button onClick={addTodo}>ADD</button>
+				<div className='counter-wrapper'>
+					<h2>Counter № 1</h2>
+					<div className='counter'>
+						<button onClick={() => setCount1(count1 + 1)}>+</button>
+						<Count id={1} value={count1} />
+					</div>
+				</div>
+				<div className='counter-wrapper'>
+					<h2>Counter № 2</h2>
+					<div className='counter'>
+						<button onClick={() => setCount2(count2 + 1)}>+</button>
+						<Count id={2} value={count2} />
+						<IsFive value={count2} />
 					</div>
 				</div>
 			</div>
