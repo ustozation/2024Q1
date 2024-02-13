@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { todosList } from './utils/mock'
 import './App.css'
@@ -27,13 +27,13 @@ function App() {
 		}
 	}
 
-	const removeScroll = () => {
+	const stopScroll = () => {
 		ulRef.current.removeEventListener('scroll', handleScroll)
 	}
 
-	useEffect(() => {
+	const startScroll = () => {
 		ulRef.current.addEventListener('scroll', handleScroll)
-	}, [])
+	}
 
 	return (
 		<>
@@ -47,7 +47,10 @@ function App() {
 					))}
 				</ul>
 				<div className='todo-footer'>
-					<button onClick={removeScroll}>Remove scroll</button>
+					<div className='todo-btns'>
+						<button onClick={startScroll}>start scroll</button>
+						<button onClick={stopScroll}>stop scroll</button>
+					</div>
 					<div className='todo-input'>
 						<input
 							type='text'
