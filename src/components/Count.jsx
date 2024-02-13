@@ -10,7 +10,7 @@ export default function Count(props) {
 
 	return (
 		<div>
-			<h1 className='cyan'>{value}</h1>
+			<h1>{value}</h1>
 		</div>
 	)
 }
