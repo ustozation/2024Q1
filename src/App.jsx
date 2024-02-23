@@ -3,9 +3,13 @@ import Count from './components/Count'
 import IsFive from './components/IsFive'
 import './App.css'
 
+// React.memo  HOC Higher Order Component 
+// useMemo() 
+
 function App() {
 	const [count1, setCount1] = useState(0)
 	const [count2, setCount2] = useState(0)
+
 	return (
 		<>
 			<div className='wrapper'>
@@ -16,6 +20,7 @@ function App() {
 						<Count id={1} value={count1} />
 					</div>
 				</div>
+
 				<div className='counter-wrapper'>
 					<h2>Counter № 2</h2>
 					<div className='counter'>
