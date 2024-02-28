@@ -1,33 +1,31 @@
-import { useState } from 'react'
-import Count from './components/Count'
-import IsFive from './components/IsFive'
+import { useEffect } from 'react'
+// import { useFetch } from './hooks/fetch.hook'
+// import { API_PATH } from './constants/api-paths'
+import { APIClient } from './services/APIClient'
 import './App.css'
 
-// React.memo  HOC Higher Order Component 
-// useMemo() 
-
 function App() {
-	const [count1, setCount1] = useState(0)
-	const [count2, setCount2] = useState(0)
+	const apiClient = new APIClient()
+	// const { data, loading, error } = useFetch(API_PATH.GET_TODOS)
+
+	useEffect(() => {
+		apiClient
+			.postData('/posts', { title: 'Frontend 2.0' })
+			.then(data => {
+				console.log('then', data)
+			})
+			.catch(err => {
+				console.log('catch', err)
+			})
+	}, [])
 
 	return (
 		<>
 			<div className='wrapper'>
 				<div className='counter-wrapper'>
-					<h2>Counter № 1</h2>
-					<div className='counter'>
-						<button onClick={() => setCount1(count1 + 1)}>+</button>
-						<Count id={1} value={count1} />
-					</div>
-				</div>
-
-				<div className='counter-wrapper'>
-					<h2>Counter № 2</h2>
-					<div className='counter'>
-						<button onClick={() => setCount2(count2 + 1)}>+</button>
-						<Count id={2} value={count2} />
-						<IsFive value={count2} />
-					</div>
+					{/* {loading && <h2>Loading...</h2>}
+					{error && <h2>Error</h2>} */}
+					{/* {data && <h2>{data.title}</h2>} */}
 				</div>
 			</div>
 		</>

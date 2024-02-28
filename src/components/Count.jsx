@@ -8,6 +8,18 @@ export default function Count(props) {
 
 	console.warn(`🔴 Count${id} render: ${++render[`count${id}`]}`)
 
+	useEffect(() => {
+		getPosts()
+			.then(data => {
+				console.log('then')
+				console.log(data)
+			})
+			.catch(err => {
+				console.log('catch')
+				console.log(err)
+			})
+	}, [])
+
 	return (
 		<div>
 			<h1>{value}</h1>
